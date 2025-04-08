@@ -1,5 +1,6 @@
 plugins {
     id("java")
+    id ("io.freefair.lombok") version "8.6"
     id("checkstyle")
     id("jacoco")
     id("org.sonarqube") version "6.0.1.5171"
@@ -15,6 +16,7 @@ repositories {
 dependencies {
     testImplementation(platform("org.junit:junit-bom:5.10.0"))
     testImplementation("org.junit.jupiter:junit-jupiter")
+    testImplementation("org.assertj:assertj-core:3.24.2")
 }
 
 checkstyle {
