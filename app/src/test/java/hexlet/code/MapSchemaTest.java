@@ -6,11 +6,10 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Objects;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-public class MapSchemaTest {
+class MapSchemaTest {
     private MapSchema schema;
     private Map<String, Integer> map;
 

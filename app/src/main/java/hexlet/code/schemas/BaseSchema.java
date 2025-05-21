@@ -2,6 +2,7 @@ package hexlet.code.schemas;
 
 import java.util.LinkedHashMap;
 import java.util.Map;
+import java.util.Objects;
 import java.util.function.Predicate;
 
 public abstract class BaseSchema<T> {
@@ -10,7 +11,7 @@ public abstract class BaseSchema<T> {
 
     public BaseSchema<T>  required() {
         this.isRequired = true;
-        checks.put("required", value -> value != null);
+        checks.put("required", Objects::nonNull);
         return this;
     }
 
