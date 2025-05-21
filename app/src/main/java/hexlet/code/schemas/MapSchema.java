@@ -16,7 +16,7 @@ public class MapSchema extends BaseSchema<Map<?, ?>> {
     }
 
     public <T> MapSchema shape(Map<String, BaseSchema<T>> schemas) {
-        Predicate<Map<?, ?>> schemasRule = value -> schemas.entrySet().stream()
+        Predicate<Map<?, ?>> schemasRule = value -> value != null && schemas.entrySet().stream()
                 .allMatch(entry -> {
                     String key = entry.getKey();
                     BaseSchema<T> subSchema = entry.getValue();
