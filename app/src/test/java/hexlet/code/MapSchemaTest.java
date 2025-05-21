@@ -82,4 +82,35 @@ class MapSchemaTest {
         assertThat(schema.isValid(human3)).isFalse();
     }
 
+    @Test
+    void testShapeWithNullFieldWithoutRequired() {
+        var v = new Validator();
+        Map<String, BaseSchema<String>> schemas = new HashMap<>();
+        schemas.put("firstName", v.string());
+        schemas.put("lastName", v.string().minLength(2));
+
+        schema.shape(schemas);
+
+        Map<String, String> person = new HashMap<>();
+        person.put("firstName", null);
+        person.put("lastName", "Lee");
+
+        assertThat(schema.isValid(person)).isTrue();
+    }
+
+    @Test
+    void testShapeWithMissingKey() {
+        var v = new Validator();
+        Map<String, BaseSchema<String>> schemas = new HashMap<>();
+        schemas.put("name", v.string().required());
+        schemas.put("city", v.string().required());
+
+        schema.shape(schemas);
+
+        Map<String, String> person = new HashMap<>();
+        person.put("name", "Denis");
+
+        assertThat(schema.isValid(person)).isFalse();
+    }
+
 }

@@ -58,4 +58,21 @@ class NumberSchemaTest {
         assertThat(schema.isValid(3)).isFalse();
         assertThat(schema.isValid(1)).isTrue();
     }
+
+    @Test
+    void testPositiveWithoutRequired() {
+        schema.positive();
+        assertThat(schema.isValid(null)).isTrue();
+        assertThat(schema.isValid(-1)).isFalse();
+        assertThat(schema.isValid(0)).isTrue();
+    }
+
+    @Test
+    void testPositiveWithRequired() {
+        schema.required().positive();
+        assertThat(schema.isValid(null)).isFalse();
+        assertThat(schema.isValid(-1)).isFalse();
+        assertThat(schema.isValid(1)).isTrue();
+    }
+
 }
