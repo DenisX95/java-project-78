@@ -3,18 +3,18 @@ import java.util.Map;
 import java.util.function.Predicate;
 
 public class MapSchema extends BaseSchema<Map<?, ?>> {
-    public MapSchema sizeof(int size) {
+    public final MapSchema sizeof(int size) {
         checks.put("size", value -> value != null && value.size() == size);
         return this;
     }
 
     @Override
-    public MapSchema required() {
+    public final MapSchema required() {
         super.required();
         return this;
     }
 
-    public <T> MapSchema shape(Map<String, BaseSchema<T>> schemas) {
+    public final <T> MapSchema shape(Map<String, BaseSchema<T>> schemas) {
         Predicate<Map<?, ?>> schemasRule = value -> value == null || schemas.entrySet().stream()
                 .allMatch(entry -> {
                     String key = entry.getKey();

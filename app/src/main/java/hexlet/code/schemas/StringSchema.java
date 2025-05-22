@@ -5,18 +5,18 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class StringSchema extends BaseSchema<String> {
 
-    public StringSchema minLength(int minLengthSize) {
+    public final StringSchema minLength(int minLengthSize) {
         checks.put("minLength", value -> value != null && value.length() >= minLengthSize);
         return this;
     }
 
-    public StringSchema contains(String containsText) {
+    public final StringSchema contains(String containsText) {
         checks.put("contains", value -> value != null && value.contains(containsText));
         return this;
     }
 
     @Override
-    public StringSchema required() {
+    public final StringSchema required() {
         super.required();
         checks.put("required", value -> value != null && !value.isEmpty());
         return this;

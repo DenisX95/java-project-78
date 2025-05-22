@@ -8,12 +8,15 @@ import java.util.function.Predicate;
 public abstract class BaseSchema<T> {
     protected final Map<String, Predicate<T>> checks = new LinkedHashMap<>();
 
+    /**
+     * Override this method to implement custom validity logic.
+     */
     public BaseSchema<T>  required() {
         checks.put("required", Objects::nonNull);
         return this;
     }
 
-    public boolean isValid(T value) {
+    public final boolean isValid(T value) {
         for (var check : checks.values()) {
             if (!check.test(value)) {
                 return false;
