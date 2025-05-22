@@ -11,7 +11,7 @@ public abstract class BaseSchema<T> {
 
     public BaseSchema<T>  required() {
         this.isRequired = true;
-        checks.put("required", value -> value != null);
+        checks.put("required", Objects::nonNull);
         return this;
     }
 

@@ -11,7 +11,7 @@ public class MapSchema extends BaseSchema<Map<?, ?>> {
     @Override
     public MapSchema required() {
         super.required();
-        checks.put("required", value -> !value.isEmpty());
+        checks.put("required", value -> value != null && !value.isEmpty());
         return this;
     }
 
