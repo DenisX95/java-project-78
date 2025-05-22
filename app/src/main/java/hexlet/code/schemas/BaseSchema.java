@@ -10,6 +10,7 @@ public abstract class BaseSchema<T> {
 
     /**
      * Override this method to implement custom validity logic.
+     * @return the current schema with the required check added
      */
     public BaseSchema<T>  required() {
         checks.put("required", Objects::nonNull);
