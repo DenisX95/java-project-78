@@ -32,9 +32,12 @@ class StringSchemaTest {
     @Test
     void testMinLength() {
         schema.minLength(0);
+
         assertThat(schema.isValid("")).isTrue();
 
         schema.minLength(5);
+
+        assertThat(schema.isValid(null)).isFalse();
         assertThat(schema.isValid("")).isFalse();
         assertThat(schema.isValid("Test")).isFalse();
         assertThat(schema.isValid("TestTest")).isTrue();
@@ -43,6 +46,9 @@ class StringSchemaTest {
     @Test
     void testContains() {
         schema.contains("");
+
+        assertThat(schema.isValid(null)).isFalse();
+
         assertThat(schema.isValid("Test")).isTrue();
 
         schema.contains("est");

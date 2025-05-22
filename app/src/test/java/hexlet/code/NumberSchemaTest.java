@@ -31,7 +31,10 @@ class NumberSchemaTest {
         assertThat(schema.isValid(-1)).isTrue();
 
         schema.positive();
-        assertThat(schema.isValid(0)).isTrue();
+
+        assertThat(schema.isValid(null)).isTrue();
+
+        assertThat(schema.isValid(0)).isFalse();
         assertThat(schema.isValid(1)).isTrue();
         assertThat(schema.isValid(-1)).isFalse();
     }
@@ -39,12 +42,16 @@ class NumberSchemaTest {
     @Test
     void testRange() {
         schema.range(1, 5);
+
+        assertThat(schema.isValid(null)).isFalse();
+
         assertThat(schema.isValid(1)).isTrue();
         assertThat(schema.isValid(5)).isTrue();
         assertThat(schema.isValid(4)).isTrue();
         assertThat(schema.isValid(-1)).isFalse();
 
         schema.range(2, 6);
+
         assertThat(schema.isValid(1)).isFalse();
         assertThat(schema.isValid(6)).isTrue();
     }
@@ -54,24 +61,9 @@ class NumberSchemaTest {
         schema.required().positive().range(1, 2);
 
         assertThat(schema.isValid(null)).isFalse();
+
         assertThat(schema.isValid(-1)).isFalse();
         assertThat(schema.isValid(3)).isFalse();
-        assertThat(schema.isValid(1)).isTrue();
-    }
-
-    @Test
-    void testPositiveWithoutRequired() {
-        schema.positive();
-        assertThat(schema.isValid(null)).isTrue();
-        assertThat(schema.isValid(-1)).isFalse();
-        assertThat(schema.isValid(0)).isTrue();
-    }
-
-    @Test
-    void testPositiveWithRequired() {
-        schema.required().positive();
-        assertThat(schema.isValid(null)).isFalse();
-        assertThat(schema.isValid(-1)).isFalse();
         assertThat(schema.isValid(1)).isTrue();
     }
 

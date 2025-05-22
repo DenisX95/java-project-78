@@ -30,13 +30,16 @@ class MapSchemaTest {
         schema.required();
         assertThat(schema.isValid(null)).isFalse();
         assertThat(schema.isValid(new HashMap<>())).isFalse();
-        assertThat(schema.isValid(new HashMap<>())).isFalse();
+        assertThat(schema.isValid(map)).isTrue();
     }
 
     @Test
     void testSizeOf() {
         map.put("1", 1);
         schema.sizeof(2);
+
+        assertThat(schema.isValid(null)).isFalse();
+        assertThat(schema.isValid(new HashMap<>())).isFalse();
 
         assertThat(schema.isValid(map)).isFalse();
 

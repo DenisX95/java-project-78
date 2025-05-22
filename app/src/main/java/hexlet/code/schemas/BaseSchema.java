@@ -16,9 +16,6 @@ public abstract class BaseSchema<T> {
     }
 
     public boolean isValid(T value) {
-        if (value == null) {
-            return !isRequired;
-        }
         for (var check : checks.values()) {
             if (!check.test(value)) {
                 return false;
