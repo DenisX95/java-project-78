@@ -69,6 +69,9 @@ class MapSchemaTest {
         schemas.put("lastName", v.string().required().minLength(2));
         schema.shape(schemas);
 
+        assertThat(schema.isValid(null)).isFalse();
+        assertThat(schema.isValid(new HashMap<>())).isFalse();
+
         Map<String, String> human1 = new HashMap<>();
         human1.put("firstName", "John");
         human1.put("lastName", "Smith");
