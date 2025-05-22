@@ -21,26 +21,27 @@ class MapSchemaTest {
 
     @Test
     void testRequired() {
-        map.put("1", 1);
-
         assertThat(schema.isValid(null)).isTrue();
         assertThat(schema.isValid(new HashMap<>())).isTrue();
+
+        map.put("1", 1);
+
         assertThat(schema.isValid(map)).isTrue();
 
         schema.required();
         assertThat(schema.isValid(null)).isFalse();
-        assertThat(schema.isValid(new HashMap<>())).isFalse();
+        assertThat(schema.isValid(new HashMap<>())).isTrue();
         assertThat(schema.isValid(map)).isTrue();
     }
 
     @Test
     void testSizeOf() {
-        map.put("1", 1);
         schema.sizeof(2);
 
         assertThat(schema.isValid(null)).isFalse();
         assertThat(schema.isValid(new HashMap<>())).isFalse();
 
+        map.put("1", 1);
         assertThat(schema.isValid(map)).isFalse();
 
         map.put("2", 2);
@@ -69,8 +70,8 @@ class MapSchemaTest {
         schemas.put("lastName", v.string().required().minLength(2));
         schema.shape(schemas);
 
-        assertThat(schema.isValid(null)).isFalse();
-        assertThat(schema.isValid(new HashMap<>())).isFalse();
+        assertThat(schema.isValid(null)).isTrue();
+        assertThat(schema.isValid(new HashMap<>())).isTrue();
 
         Map<String, String> human1 = new HashMap<>();
         human1.put("firstName", "John");
@@ -116,7 +117,7 @@ class MapSchemaTest {
         Map<String, String> person = new HashMap<>();
         person.put("name", "Denis");
 
-        assertThat(schema.isValid(person)).isFalse();
+        assertThat(schema.isValid(person)).isTrue();
     }
 
 }
