@@ -36,7 +36,18 @@ make setup
 
 ## Документация
 
-Валидатор поддерживает цепочку правил, применяемую к каждому полю. Ниже перечислены основные правила валидации, доступные в библиотеке:
+### Основной интерфейс
+Валидация начинается с создания объекта `Validator`. Он предоставляет методы для получения схем соответствующего типа:
+
+```java
+Validator v = new Validator();
+
+StringSchema stringSchema = v.string();
+NumberSchema numberSchema = v.number();
+MapSchema mapSchema = v.map();
+```
+
+Объект `Validator` — это фабрика схем. Каждая схема настраивается отдельно с помощью цепочки методов и применяется к данным через `isValid(...)`.
 
 ### StringSchema
 
@@ -67,3 +78,31 @@ make setup
 | `required()`                               | Значение обязательно (не `null`)                    |
 | `sizeof(int size)`                         | `Map` должна содержать ровно size элементов         |
 | `shape(Map<String, BaseSchema<?>> schemas)`| Задает схему для каждого ключа `Map`                |
+
+## Пример использования
+
+```java
+var v = new Validator();
+
+// Строка
+StringSchema stringSchema = v.string();
+stringSchema.required().minLength(3).contains("abc");
+stringSchema.isValid("abcde"); // true
+
+// Число
+NumberSchema numberSchema = v.number();
+numberSchema.required().positive().range(10, 100);
+numberSchema.isValid(50); // true
+
+// Map
+MapSchema mapSchema = v.map();
+mapSchema.required().sizeof(2);
+
+Map<String, BaseSchema<?>> shape = Map.of(
+    "name", validator.string().required(),
+    "city", validator.string().minLength(3)
+);
+
+mapSchema.shape(shape);
+mapSchema.isValid(Map.of("name", "Ivan", "city", "Moscow")); // true
+```
