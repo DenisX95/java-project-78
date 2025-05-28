@@ -18,7 +18,6 @@ public class StringSchema extends BaseSchema<String> {
     @Override
     public final StringSchema required() {
         super.required();
-        checks.put("required", value -> value != null && !value.isEmpty());
         return this;
     }
 }

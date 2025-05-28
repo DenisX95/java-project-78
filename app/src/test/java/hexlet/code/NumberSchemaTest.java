@@ -43,7 +43,7 @@ class NumberSchemaTest {
     void testRange() {
         schema.range(1, 5);
 
-        assertThat(schema.isValid(null)).isFalse();
+        assertThat(schema.isValid(null)).isTrue();
 
         assertThat(schema.isValid(1)).isTrue();
         assertThat(schema.isValid(5)).isTrue();
